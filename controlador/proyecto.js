@@ -95,20 +95,21 @@ var controlador = {
 	uploadImage: function(req, res){
 		var projecId = req.params.id;
 		var fileName = 'Imagen no subida..';
-
-		if(req.file){
-			var filePath = req.files.image.path;
+		
+		if(req.files){
+			var filePath = req.files.foto.path;
  			var fileSplit = filePath.split('\\');
  			var fileName = fileSplit[1];
  			var exSplit = fileName.split('\.');
  			var fileExt = exSplit[1];
 
  			if(fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg' || fileExt == 'gif'){
- 			Project.findByIdAndUpdate(projecId, {image: fileName}, {new: true}, (err, projectUpdate) => {
+ 			Project.findByIdAndUpdate(projecId, {foto: fileName}, {new: true}, (err, projectUpdate) => {
  				if(err) return res.status(500).send({message: 'La imagen no se a subido'});
  				if(!projectUpdate) return res.status(404).send({message: 'El portatil no existe'});
 
  				return res.status(200).send({project: projectUpdate});
+ 				// return res.status(200).send({req.files});
  			});	
 
  			}
@@ -117,6 +118,9 @@ var controlador = {
  					return res.status(200).send({message: 'la extension no es valida'});
  				})
  			}
+		}
+		else{
+			return res.status(200).send({message: fileName});
 		}
 	}
 
