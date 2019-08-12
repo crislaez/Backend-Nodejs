@@ -102,6 +102,9 @@ var controlador = {
  			var fileName = fileSplit[1];
  			var exSplit = fileName.split('\.');
  			var fileExt = exSplit[1];
+ 			// var fileName = req.files.foto.originalFilename;
+ 			// var fileSplit = fileName.split('.');
+ 			// var fileExt = fileSplit[1];
 
  			if(fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg' || fileExt == 'gif'){
  			Project.findByIdAndUpdate(projecId, {foto: fileName}, {new: true}, (err, projectUpdate) => {
@@ -109,7 +112,7 @@ var controlador = {
  				if(!projectUpdate) return res.status(404).send({message: 'El portatil no existe'});
 
  				return res.status(200).send({project: projectUpdate});
- 				// return res.status(200).send({req.files});
+ 				// return res.status(200).send({project: projectUpdate, message: req.files});
  			});	
 
  			}
@@ -123,6 +126,7 @@ var controlador = {
 			return res.status(200).send({message: fileName});
 		}
 	}
+
 
 
 };
